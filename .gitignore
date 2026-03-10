@@ -6,3 +6,5 @@ test.db
 *.pdf
 .env
 scooterflow_guia_devops.md
+enlace_git.txt
+populate_db.py
