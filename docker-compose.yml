@@ -1,0 +1,27 @@
+services:
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: scooter
+      POSTGRES_PASSWORD: scooter
+      POSTGRES_DB: scooterflow
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scooter -d scooterflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://scooter:scooter@db:5432/scooterflow
+    volumes:
+      - .:/code      # Sincroniza tu carpeta local con /code dentro del contenedor
+    depends_on:
+      db:
+        condition: service_healthy
