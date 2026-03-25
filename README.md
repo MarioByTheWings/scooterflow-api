@@ -11,6 +11,12 @@ API de gestión de flota de patinetes eléctricos.
 docker compose up --build
 ```
 
+## Ejecutar migraciones Alembic y poblar la base de datos
+
+```bash
+docker compose exec api alembic upgrade head && docker compose exec api python populate_db.py
+```
+
 La API estará disponible en: http://localhost:8000/docs
 
 ## Ejecutar tests
